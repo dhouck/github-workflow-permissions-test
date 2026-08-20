@@ -43,7 +43,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [testBuild, lint]
-    if: github.ref == 'refs/heads/main'
     permissions:
       contents: "write"
     steps:
@@ -62,7 +61,7 @@ jobs:
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
-          BRANCH: release
+          BRANCH: release-from-outside-pr
           FOLDER: ${{ env.build-path }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: "Build: ({sha}) {msg}"
